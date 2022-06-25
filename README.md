@@ -20,6 +20,9 @@ With Examples
 ### Routes
 
 ```
+#  Headers
+Accept: application/json
+
 # Public
 
 POST   /api/login
@@ -29,7 +32,7 @@ POST   /api/register
 @body: name, email, username, password, password_confirmation, bio
 
 
-# Protected
+# Protected (Needs Bearer Token)
 
 -USER ROUTES
 POST   /api/logout - logout
