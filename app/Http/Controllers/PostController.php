@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Follow;
+use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -102,33 +104,53 @@ class PostController extends Controller
         return response()->json(['message' => 'Deleted'], 200);
     }
 
-    public function user_posts()
+    public function user_posts($id)
     {
-        $posts = Post::where('user_id', auth()->id())->get();
+        $posts = Post::where('user_id', $id)->get();
         return $posts;
     }
 
-    public function following_posts()
+    public function following_posts($id)
     {
-        $posts = Post::whereIn('user_id', auth()->user()->following()->pluck('following_id'))->get();
+        $following = Follow::where('user_id', $id)->pluck('follower_id');
+        $posts = Post::whereIn('user_id', $following)->get();
         return $posts;
+
     }
 
-    public function like()
+    public function like($id)
     {
-        $post = Post::findOrFail(request('post_id'));
-        if (!$post->likes()->where('user_id', auth()->id())->exists()) {
-            $post->likes()->attach(auth()->id());
-            return response()->json(['message' => 'Liked'], 200);
+        //check if user has liked this post then like them
+        $like = Like::where('user_id', auth()->id())->where('post_id', $id)->first();
+        if ($like) {
+            $like->delete();
+            return response()->json([
+                'message' => 'Unliked',
+            ]);
+
         } else {
-            $post->likes()->detach(auth()->id());
-            return response()->json(['message' => 'Unliked'], 200);
+            Like::create([
+                'user_id' => auth()->id(),
+                'post_id' => $id,
+            ]);
+
+            return response()->json([
+                'message' => 'Liked',
+            ]);
+
         }
+
     }
 
     public function likes($id)
     {
-        $post = Post::findOrFail($id);
-        return $post->likes;
+        //get users that like the post and timestamp
+
+        $likes = Like::where('post_id', $id)->get();
+        //link users to likes
+        foreach ($likes as $like) {
+            $like->user;
+        }
+        return $likes;
     }
 }

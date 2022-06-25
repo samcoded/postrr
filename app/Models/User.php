@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Follow;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -53,13 +52,15 @@ class User extends Authenticatable
 
     public function followers()
     {
-        return $this->hasMany(Follow::class, 'user_id');
+        // get all users where the user is in the followers table
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'user_id');
 
     }
 
     public function following()
     {
-        return $this->hasMany(Follow::class, 'follower_id');
+
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'follower_id');
     }
 
     public function likes()

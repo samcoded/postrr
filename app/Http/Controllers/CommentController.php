@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -14,9 +16,8 @@ class CommentController extends Controller
      */
     public function index($id)
     {
-        //
-        $post = Post::findOrFail($id);
-        $comments = $post->comments()->get();
+        //find comments if post is id
+        $comments = Comment::where('post_id', $id)->get();
         return response()->json([
             'comments' => $comments,
         ]);
@@ -39,11 +40,16 @@ class CommentController extends Controller
         //add user id
         $fields['user_id'] = auth()->id();
 
+        //add post id
+        $fields['post_id'] = $id;
+
         $post = Post::findOrFail($id);
-        $post->comments()->create($fields);
+
+        $comment = Comment::create($fields);
 
         return response()->json([
             'message' => 'Comment created',
+            'comment' => $comment,
         ]);
     }
 
@@ -88,6 +94,7 @@ class CommentController extends Controller
 
         return response()->json([
             'message' => 'Comment updated',
+            'comment' => $comment,
         ]);
 
     }

@@ -41,7 +41,6 @@ class FollowController extends Controller
     public function user_followers($id)
     {
         //
-
         $user = auth()->user();
 
         $followers = $user->followers()

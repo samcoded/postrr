@@ -24,7 +24,7 @@ Route::get('/', function () {
     return response()->json([
         'message' => 'Welcome to the Postrr API. You have reached the base of the API.',
         'description' => 'You can use this to register, login, or create, read, update, and delete posts and comments.',
-        'docs' => '',
+        'docs' => 'https://documenter.getpostman.com/view/14158032/UzBsGPf5',
     ]);
 });
 
