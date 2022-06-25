@@ -52,7 +52,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/posts/{id}', [PostController::class, 'show']); //get post by id
     Route::put('/posts/{id}', [PostController::class, 'update']); //update post
     Route::delete('/posts/{id}', [PostController::class, 'destroy']); //delete a post
-    Route::get('/posts/search/{$searchTerm}', [PostController::class, 'search']); //search posts by searchTerm
+    Route::get('/posts/search/{searchTerm}', [PostController::class, 'search']); //search posts by searchTerm
     Route::get('/user/{id}/posts', [PostController::class, 'user_posts']); //users posts
     Route::get('/user/{id}/followings/posts', [PostController::class, 'following_posts']); //user's following posts
     Route::post('/posts/{id}/like', [PostController::class, 'like']); //toggle likes
