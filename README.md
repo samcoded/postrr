@@ -1,12 +1,12 @@
 # Postrr
 
-Postrr is a REST API server for micro-blogging platform
+Postrr is a REST API server for a micro-blogging platform
 
 Logged users can make and delete post, follow other users, like and comment on other post.
 
 ### Live demo
 
-[.herokuapp.com Hosted on Heroku](https://.herokuapp.com/)
+[postrr-coded.herokuapp.com/api Hosted on Heroku](https://postrr-coded.herokuapp.com/api)
 
 ### Tools
 
@@ -15,7 +15,7 @@ Built with Laravel 8, Postgres SQL and Laravel Santum for Authentication Tokens 
 ### API Documentation
 
 [Full API Documentation Hosted on Postman](https://documenter.getpostman.com/view/14158032/UzBsGPf5)
-With examples
+With Examples
 
 ### Routes
 
