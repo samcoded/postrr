@@ -26,7 +26,7 @@ POST   /api/login
 @body: email, password
 
 POST   /api/register
-@body: name, email, password, password_confirmation, bio
+@body: name, email, username, password, password_confirmation, bio
 
 
 # Protected
